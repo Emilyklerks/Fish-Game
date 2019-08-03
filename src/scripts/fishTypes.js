@@ -1,5 +1,5 @@
 
 const FishTypes = {
-    GOLD: "assets/fish.png",
-    ZEBRA: "assets/zebrafish.png"
+    GOLD: ["../assets/goldfish.png", "../assets/goldfish_reverse.png"],
+    ZEBRA: ["../assets/zebrafish.png", "../assets/zebrafish_reverse.png"]
 }
