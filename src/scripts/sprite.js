@@ -11,7 +11,15 @@ class Sprite {
         this.currentLocation = location;
         this.direction = null;
         this.speed = new Location(0,0);
+
         this.framesSinceLastBirth = 0;
+        this.size = 16;
+    };
+
+    grow() {
+      if (this.size < 32) {
+          this.size += 0.001;
+      }
     };
 
     //updatePosition is run every frame for every sprite

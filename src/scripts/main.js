@@ -11,20 +11,31 @@ function setup() {
 
 function draw() {
     background(135, 216, 222);
-
     checkForBabies();
+    displaySelection():
 
     World.sprites.forEach((sprite) => {
 
         if (sprite.speed.x > 0) {
-            image(sprite.loadedImgs[0], sprite.currentLocation.x, sprite.currentLocation.y);
+            image(sprite.loadedImgs[0], sprite.currentLocation.x, sprite.currentLocation.y, sprite.size, sprite.size);
         } else {
-            image(sprite.loadedImgs[1], sprite.currentLocation.x, sprite.currentLocation.y);
+            image(sprite.loadedImgs[1], sprite.currentLocation.x, sprite.currentLocation.y, sprite.size, sprite.size);
         }
 
         sprite.updatePosition();
+        sprite.grow();
         sprite.framesSinceLastBirth++;
     });
+}
+
+function mouseClicked() {
+    let clickedSpritesArray = World.sprites.filter(sprite => {
+         return (
+             Math.abs(sprite.currentLocation.x - mouseX) < 32
+            && Math.abs(sprite.currentLocation.y - mouseY) < 32
+         )
+    });
+    World.selectedSprite = clickedSpritesArray.length > 0 ? clickedSpritesArray[0] : undefined;
 }
 
 function checkForBabies() {
@@ -42,10 +53,21 @@ function checkForBabies() {
                 console.log("BABY WAS BORN!!")
                 sortedSpritesCopy[0].framesSinceLastBirth = 0;
                 sortedSpritesCopy[1].framesSinceLastBirth = 0;
-                World.createSprite(new Location(400, 400), "ZEBRA");
+                World.createSprite(sortedSpritesCopy[0].currentLocation, "ZEBRA");
             }
 
     }
 }
 
+function displaySelection() {
+    stroke(255,0,0);
+    noFill();
+
+    if(World.selectedSprite) {
+        rect(World.selectedSprite.currentLocation.x,
+            World.selectedSprite.currentLocation.y,
+            World.selectedSprite.size,
+            World.selectedSprite.size);
+    }
+}
 

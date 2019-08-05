@@ -4,6 +4,8 @@
 
 const World = {
     sprites: [],
+    money: 0,
+    selectedSprite: undefined,
     loadImagesForSprite(sprite) {
         if (sprite.imgPaths) {
             sprite.imgPaths.forEach((imgPath) => {
